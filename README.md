@@ -11,7 +11,9 @@ A simple ASP.NET MVC application for managing books, user accounts, and library 
 
 🔍 Book Availability: Check if books are available for borrowing.
 
+
 ⚙️ Technologies Used
+
 ASP.NET MVC
 
 C#
@@ -21,6 +23,7 @@ Entity Framework
 SQL Server (for database)
 
 🎯 Usage
+
 Register a new account or log in if you already have one.
 
 Browse the available books in the library.
