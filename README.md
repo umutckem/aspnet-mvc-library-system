@@ -2,7 +2,7 @@
 
 A simple ASP.NET MVC application for managing books, user accounts, and library transactions.
 
-🚀 Features\n
+🚀 Features
 
 👥 User Registration and Login: Allows users to create accounts and log in.
 
