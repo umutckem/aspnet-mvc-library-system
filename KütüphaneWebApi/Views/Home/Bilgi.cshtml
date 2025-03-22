@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Bilgi Sayfası";
+}
+
+<!-- Custom Tag Helper kullanımı -->
+<bilgi-kart baslik="Projelerimiz" icerik="Biz teknoloji ve inovasyonla geleceği şekillendiriyoruz." />
+<bilgi-kart baslik="Ekibimiz" icerik="Ekibimiz deneyimli mühendislerden oluşmaktadır." />
+
+<!-- Var olan HTML ile stil eklenmiş içerik -->
+<div class="bilgi-kart">
+    <h2>Projelerimiz</h2>
+    <p>Biz teknoloji ve inovasyonla geleceği şekillendiriyoruz.</p>
+</div>
+<div class="bilgi-kart">
+    <h2>Ekibimiz</h2>
+    <p>Ekibimiz deneyimli mühendislerden oluşmaktadır.</p>
+</div>
+
+<style>
+    .bilgi-kart {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .bilgi-kart h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+        }
+
+        .bilgi-kart p {
+            margin: 0;
+            font-size: 1em;
+            color: #555;
+        }
+</style>

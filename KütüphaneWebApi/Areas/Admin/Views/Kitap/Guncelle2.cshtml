@@ -1,0 +1,220 @@
+﻿@model KütüphaneWebApi.Models.Kitap
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Güncelle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #343a40;
+            color: #fff;
+            position: fixed;
+            height: 100%;
+            width: 300px; /* Genişliği artırdık */
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            padding-left: 0px;
+            z-index: 10; /* Sidebar'ın üstte olmasını sağlamak için */
+        }
+
+        .sidebar-body button {
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            padding: 15px;
+            background-color: #343a40;
+            border: none;
+            font-weight: 600;
+            color: black;
+            transition: 0.3s background ease;
+            text-align: left;
+            padding-left: 20px;
+            border-radius: 8px;
+            font-weight: normal;
+            display: block;
+            cursor: pointer;
+        }
+
+            .sidebar-body button:hover {
+                background-color: #23272b; /* Hover için koyu gri */
+            }
+
+        /* Personel Paneli Butonu için özel stil */
+        .sidebar-body .personel-panel-btn {
+            background-color: #f1c40f; /* Personel Paneli butonunun sarı rengi */
+        }
+
+            .sidebar-body .personel-panel-btn:hover {
+                background-color: #f39c12; /* Hover için koyu sarı */
+            }
+
+        /* Form Alanının Konumu */
+        .form-container {
+            margin-left: 320px; /* Sidebar genişliği kadar boşluk bıraktık */
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+            .form-container h1 {
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
+                text-align: center;
+                color: #333;
+                font-weight: 600;
+            }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+            .form-group label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: #444;
+                font-size: 1rem;
+            }
+
+            .form-group input, .form-group select {
+                width: 100%;
+                padding: 1rem;
+                font-size: 1.1rem;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                outline: none;
+                transition: border-color 0.3s, box-shadow 0.3s;
+                background-color: #f9f9f9;
+            }
+
+                .form-group input:focus, .form-group select:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+                }
+
+        .submit-btn {
+            background: linear-gradient(90deg, #007bff, #00d2ff);
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+            .submit-btn:hover {
+                background: linear-gradient(90deg, #0056b3, #00b8ff);
+                transform: scale(1.05);
+            }
+
+            .submit-btn:active {
+                transform: scale(1);
+            }
+
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Sol Menü -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Admin Paneli</h3>
+        </div>
+        <div class="sidebar-body">
+            <button class="personel-panel-btn" onclick="window.location.href='/Admin/Kitap/Index'">Personel Paneli</button>
+            <button class="personel-panel-btn" onclick="window.location.href='/Admin/Kitap/KitapEkle'">Kitap Ekle</button> <!-- Hata düzeltildi -->
+            <button class="personel-panel-btn" onclick="window.location.href='/Admin/Kitap/Kullanici'">Kullanicilar</button>
+            <button class="btn-dark" onclick="window.location.href='/Kitaps/Index'">Ana Menü</button>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h1>Kitap Güncelle</h1>
+        <form asp-action="Guncelle2" asp-controller="Kitap" asp-area="Admin" method="post">
+            <!-- Kitap ID Girişi -->
+            <div class="form-group">
+                <label for="Id">Kitap ID</label>
+                <input type="text" id="Id" name="Id" value="@Model.Id" required>
+            </div>
+
+            <div class="form-group">
+                <label for="kitapAd">Kitap Adı</label>
+                <input type="text" id="kitapAd" name="kitapAd" value="@Model.kitapAd" required>
+            </div>
+
+            <div class="form-group">
+                <label for="kitapYazari">Yazar Adı</label>
+                <input type="text" id="kitapYazari" name="kitapYazari" value="@Model.kitapYazari" required>
+            </div>
+
+            <div class="form-group">
+                <label for="kitapYazimTarihi">Yazım Tarihi</label>
+                <input type="date" id="kitapYazimTarihi" name="kitapYazimTarihi" value="@Model.kitapYazimTarihi.ToString("yyyy-MM-dd")" required>
+            </div>
+
+            <div class="form-group">
+                <label for="kitapImg">Kapak Resmi URL</label>
+                <input type="url" id="kitapImg" name="kitapImg" value="@Model.kitapImg" required>
+            </div>
+
+            <div class="form-group">
+                <label for="kitapAlimTarihi">Alım Tarihi</label>
+                <input type="date" id="kitapAlimTarihi" name="kitapAlimTarihi" value="@Model.kitapAlimTarihi.ToString("yyyy-MM-dd")" required>
+            </div>
+
+            <div class="form-group">
+                <label for="aktiflik">Aktiflik</label>
+                <select id="aktiflik" name="aktiflik" required>
+                    <option value="Aktif" @(Model.aktiflik == "Aktif" ? "selected" : "")>Aktif</option>
+                    <option value="Pasif" @(Model.aktiflik == "Pasif" ? "selected" : "")>Pasif</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="basımNumarasi">Basım Numarası</label>
+                <input type="number" id="basımNumarasi" name="basımNumarasi" value="@Model.basımNumarasi" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="alanKişiId">Alan Kişi ID</label>
+                <input type="text" id="alanKişiId" name="alanKişiId" value="@Model.alanKişiId.ToString()">
+            </div>
+
+            <button type="submit" class="submit-btn">Kaydet</button>
+        </form>
+    </div>
+</body>
+</html>

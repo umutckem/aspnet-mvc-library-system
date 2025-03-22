@@ -1,0 +1,281 @@
+﻿@model KütüphaneWebApi.Models.Kitap
+
+@{
+    var alımTarihi = Model.kitapAlimTarihi.ToDateTime(TimeOnly.MinValue); // DateOnly'i DateTime'a dönüştürme
+    var bugun = DateTime.Now;
+    var fark = (bugun.Date - alımTarihi.Date).Days; // Tarih farkı hesaplanıyor
+    var ceza = 0.0;
+
+    if (fark > 15)
+    {
+        ceza = (fark - 15) * 0.25; // 15 günü geçtikten sonra her gün için ceza ekliyoruz
+    }
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 p-0">
+            <div class="sidebar">
+
+                <div class="sidebar-header">
+                    <h3>Admin Paneli</h3>
+                </div>
+
+                <div class="sidebar-body">
+                    <!-- Butonlar Alt Alta -->
+                    <button class="btn btn-warning w-100 mb-4 p-3" onclick="window.location.href='/Admin/Kitap/Index'">Personel Paneli</button>
+                    <button class="btn btn-warning w-100 mb-4 p-3" onclick="window.location.href='/Admin/Kitap/KitapEkle'">Kitap Ekle</button>
+                    <button class="btn btn-warning w-100 mb-4 p-3" onclick="window.location.href='/Admin/Kitap/Kullanici'">Kullanicilar</button>
+                    <button class="btn btn-dark w-100 mb-4 p-3" onclick="window.location.href='/Admin/Kitap/Index'">Ana Menü</button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="container mt-5">
+                
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="card shadow-lg border-0 rounded-lg">
+                            <div class="card-header bg-gradient text-white text-center">
+                                <h4 class="mb-0">Mevcut Kitap Bilgileri</h4>
+                            </div>
+                            <div class="card-body p-4">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Kitap ID:</strong> <span>@Model.Id</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Kitap Adı:</strong> <span>@Model.kitapAd</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Kitap Yazarı:</strong> <span>@Model.kitapYazari</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Yazım Tarihi:</strong> <span>@Model.kitapYazimTarihi.ToShortDateString()</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Resim URL:</strong> <span>@Model.kitapImg</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Alım Tarihi:</strong> <span>@Model.kitapAlimTarihi.ToShortDateString()</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Aktiflik:</strong> <span>@Model.aktiflik</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Basım Numarası:</strong> <span>@Model.basımNumarasi</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Alan Kişi ID:</strong> <span>@Model.alanKişiId</span>
+                                    </li>
+                                    <!-- Ceza Durumu -->
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <strong>Ceza Durumu:</strong>
+                                        <span>
+                                            @if (ceza > 0)
+                                            {
+                                                @ceza.ToString("0.00") @:TL
+                                            }
+                                            else
+                                            {
+                                                    <span>Ceza Yok</span>
+                                            }
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stil -->
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Inter', sans-serif;
+        color: #495057;
+    }
+
+    h2 {
+        font-weight: 700;
+        color: #007bff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 20px;
+    }
+
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        margin-top: 40px;
+    }
+
+    .card-header {
+        background: linear-gradient(to right, #007bff, #6610f2);
+        padding: 30px 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        letter-spacing: 1px;
+    }
+
+    .card-body {
+        padding: 30px;
+        background-color: #f9f9f9;
+    }
+
+    .list-group-item {
+        font-size: 1 rem;
+        background-color: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        margin-bottom: 18px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+        .list-group-item:hover {
+            background-color: #e9ecef;
+            transform: translateY(-5px);
+        }
+
+        .list-group-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .list-group-item strong {
+            color: #495057;
+        }
+
+        .list-group-item span {
+            font-weight: 500;
+            color: #007bff;
+        }
+
+    .container {
+        max-width: 900px;
+        margin-top: 20px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+    }
+
+    .col-lg-6, .col-md-8 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .card-header h4 {
+        text-align: center;
+        margin: 0;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border: none;
+        padding: 15px;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    .sidebar {
+        background-color: #343a40;
+        color: #fff;
+        position: fixed;
+        height: 100%;
+        width: 250px;
+        top: 0;
+        left: 0;
+        padding-top: 20px;
+    }
+
+    .sidebar-header {
+        margin-bottom: 30px;
+    }
+
+    .sidebar-header h4 {
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .sidebar-body {
+        padding-left: 20px;
+        text-align: left;
+        padding-left: 0; /* Sağda boşluk bırakmamak için */
+        padding-right: 0; /* Sağda boşluk bırakmamak için */
+    }
+
+    /* Sidebar Butonları Düzeni */
+    .sidebar-body button {
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 0.8rem;
+        padding: 0x;
+
+    }
+    .sidebar .btn {
+    text-align: left;
+    padding-left: 20px; /* Sol padding ekleyerek biraz daha estetik görünmesini sağlayabilirsiniz */
+}
+
+
+    .container-fluid {
+        display: flex;
+        margin-left: 250px; /* Sidebar genişliği kadar boşluk */
+    }
+
+    .col-md-9, .col-lg-10 {
+        margin-left: 0;
+        padding-left: 20px;
+    }
+
+    .col-md-3, .col-lg-2 {
+        padding: 0;
+    }
+
+/* btn-dark sınıfı için özel stil */
+.sidebar .btn-dark {
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    width: 100%;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.sidebar .btn-dark:hover {
+    background-color: #23272b; /* Hover durumunda daha koyu gri */
+}
+
+    .sidebar-header h3 {
+        font-size: 1.5rem;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+
+
+</style>

@@ -1,0 +1,43 @@
+﻿@inject SignInManager<IdentityUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<style>
+    .nav-link {
+        font-weight: bold; /* Tüm bağlantılar kalın */
+    }
+
+        .nav-link:hover {
+            color: #ff5722 !important; /* Üzerine gelindiğinde değişen renk */
+            text-decoration: underline;
+        }
+
+        .nav-link.active {
+            color: #28a745 !important; /* Aktif bağlantı rengi */
+            text-decoration: none;
+        }
+</style>
+
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+        <a class="nav-link text-primary @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profil</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-danger @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">E-posta</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-success @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Şifre Değiştir</a>
+    </li>
+    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class="nav-item">
+            <a id="external-login" class="nav-link text-warning @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Harici Girişler</a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link text-info @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">İki Faktörlü Kimlik Doğrulama</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-secondary @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Kişisel Veriler</a>
+    </li>
+</ul>

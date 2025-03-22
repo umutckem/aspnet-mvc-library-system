@@ -1,0 +1,170 @@
+﻿@model List<KütüphaneWebApi.Models.Kitap>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcının Aldığı Kitaplar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* Siyah arka plan */
+            color: #ffffff; /* Beyaz metin */
+            padding: 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+            .title::after {
+                content: '';
+                display: block;
+                width: 50%;
+                height: 2px;
+                background-color: #ffffff;
+                margin: 10px auto 0;
+            }
+
+        .card {
+            margin: 15px;
+            background-color: #1e1e1e; /* Koyu gri kart arka planı */
+            border: 1px solid #ffffff;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+            .btn-danger:hover {
+                background-color: #c82333;
+            }
+
+        .alert {
+            margin-top: 20px;
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="title">Kullanıcının Aldığı Kitaplar</h2>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="row">
+                @foreach (var kitap in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="@kitap.kitapImg" class="card-img-top" alt="Kitap Resmi">
+                            <div class="card-body">
+                                <h5 class="card-title">@kitap.kitapAd</h5>
+                                <p class="card-text">Yazar: @kitap.kitapYazari</p>
+                                <p class="card-text">Basım Numarası: @kitap.basımNumarasi</p>
+                                <p class="card-text">
+                                    Alım Tarihi: @kitap.kitapAlimTarihi <br>
+                                    @if (kitap.kitapAlimTarihi != default)
+                                    {
+                                        var suankiTarih = DateOnly.FromDateTime(DateTime.Now);
+                                        var alimTarihi = kitap.kitapAlimTarihi.ToDateTime(TimeOnly.MinValue); // DateTime'e dönüştür
+                                        var suankiTarihDateTime = suankiTarih.ToDateTime(TimeOnly.MinValue); // Şu anki tarihi de DateTime'e dönüştür
+                                        var gecenGun = (suankiTarihDateTime - alimTarihi).Days - 15;
+
+                                        if (gecenGun > 0)
+                                        {
+                                            <br />
+                                            var toplamCeza = gecenGun * 0.25m; /* Fazladan gün başına 25 kuruş */
+                                            <span style="color: #ffcc00;">
+                                                Gecikme Cezası: @gecenGun gün x 0.25 TL = @toplamCeza TL
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            <span style="color: #90ee90;">Cezası Bulunmamakta.</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span style="color: #dc3545;">Henüz alınmamış.</span>
+                                    }
+                                </p>
+
+                                @* Kitap bırakma butonunu ekliyoruz *@
+                                @if (kitap.kitapAlimTarihi != default)
+                                {
+                                    var suankiTarih = DateOnly.FromDateTime(DateTime.Now); // Şu anki tarihi DateOnly'e dönüştür
+                                    var alimTarihi = kitap.kitapAlimTarihi.ToDateTime(TimeOnly.MinValue); // Alım tarihini DateTime'a dönüştür
+                                    var gecenGun = (suankiTarih.ToDateTime(TimeOnly.MinValue) - alimTarihi).Days;
+
+                                    if (gecenGun <= 15)  // Eğer 15 gün içinde geri verildiyse bırakabilir
+                                    {
+                                        <a href="/Admin/Kullanici/KitapBırak/@kitap.Id" class="btn btn-danger btn-sm">Kitap Bırak</a>
+                                    }
+                                    else
+                                    {
+                                        <span style="color: #dc3545;">Gecikme nedeniyle kitap bırakılamaz.</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span style="color: #dc3545;">Kitap alınmadı, bırakılamaz.</span>
+                                }
+
+                                <a href="/Kitaps/Detay/@kitap.Id" class="btn btn-primary btn-sm">Detay</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert" role="alert">
+                Kullanıcının aldığı kitap bulunmamaktadır.
+            </div>
+        }
+
+        <div class="text-center mt-3">
+            <a href="/Kitaps/Index" class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

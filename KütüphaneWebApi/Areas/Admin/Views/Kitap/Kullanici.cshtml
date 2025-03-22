@@ -1,0 +1,219 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcılar - Admin Paneli</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            display: flex;
+            height: 100vh;
+        }
+
+        .container {
+            margin-top: 30px;
+            margin-left: 250px; /* Sidebar genişliği kadar boşluk */
+            width: calc(100% - 250px); /* Sidebar'dan sonra kalan alan */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #343a40;
+            color: #fff;
+            position: fixed;
+            height: 100%;
+            width: 250px;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            padding-left: 0px;
+        }
+
+        .sidebar-header h4 {
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .sidebar-body {
+            padding-top: 20px;
+        }
+
+            .sidebar-body button {
+                width: 100%;
+                margin-bottom: 20px;
+                font-size: 1rem;
+                padding: 15px;
+                background-color: #343a40; /* Varsayılan karanlık renk */
+                border: none;
+                font-weight: 600;
+                color: black;
+                transition: 0.3s background ease;
+                text-align: left;
+                padding-left: 20px;
+                border-radius: 8px;
+                font-weight: normal; 
+            }
+
+                .sidebar-body button:hover {
+                    background-color: #23272b; /* Hover için koyu gri */
+                }
+
+
+            /* Personel Paneli Butonu için özel stil */
+            .sidebar-body .personel-panel-btn {
+                background-color: #f1c40f; /* Personel Paneli butonunun sarı rengi */
+            }
+
+                .sidebar-body .personel-panel-btn:hover {
+                    background-color: #f39c12; /* Hover için koyu sarı */
+                }
+
+        /* Kullanıcılar Tablosu */
+        h3 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+            .table th, .table td {
+                text-align: center;
+                padding: 12px;
+            }
+
+            .table th {
+                background-color: #f8f9fa;
+                color: #333;
+            }
+
+            .table td {
+                color: #666;
+            }
+
+            .table tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            .table .btn-sm {
+                padding: 5px 10px;
+                font-size: 14px;
+            }
+
+            .table .btn-primary {
+                background-color: #007bff;
+                border: none;
+            }
+
+                .table .btn-primary:hover {
+                    background-color: #0056b3;
+                }
+
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+        </div>
+        <div class="sidebar-header">
+            <h3>Admin Paneli</h3>
+        </div>
+        <div class="sidebar-body">
+            <button class="personel-panel-btn" onclick="window.location.href='/Admin/Kitap/Index'">Personel Paneli</button>
+            <button class="personel-panel-btn" onclick="window.location.href='/Admin/Kitap/KitapEkle'">Kitap Ekle</button>
+            <button class="personel-panel-btn" onclick="window.location.href='/Admin/Kitap/Kullanici'">Kullanıcılar</button>
+            <button class="personel-panel-btn" onclick="window.location.href='/Admin/Kitap/Destek'">Destek</button>
+            <button class="btn ana-menu-btn w-100 mb-4 p-3" onclick="window.location.href='/Kitaps/Index'">Ana Menü</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container">
+        <h3 class="text-center">Kullanıcılar Listesi</h3>
+        <table id="kullanicilarTablosu" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Email</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.UserName</td>
+                            <td>@user.Email</td>
+                            <td>
+                                <a href="/Admin/Kitap/KullaniciDetay/@user.Id" class="btn btn-primary btn-sm">Detay</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">Hiçbir kullanıcı bulunamadı.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#kullanicilarTablosu').DataTable({
+                language: {
+                    search: "Arama:",
+                    lengthMenu: "Sayfada _MENU_ kayıt göster",
+                    info: "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",
+                    infoEmpty: "Gösterilecek kayıt yok",
+                    paginate: {
+                        first: "İlk",
+                        last: "Son",
+                        next: "Sonraki",
+                        previous: "Önceki"
+                    },
+                }
+            });
+        });
+    </script>
+</body>
+</html>

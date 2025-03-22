@@ -1,0 +1,323 @@
+﻿@model KütüphaneWebApi.Models.Kitap
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Ekle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #74b9ff, #dfe6e9);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container-fluid {
+            display: flex;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            color: #fff;
+            position: fixed;
+            height: 100%;
+            width: 250px;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            padding-left: 0px;
+        }
+
+        .sidebar-header h4 {
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .sidebar-body {
+            padding: 0; /* İç padding'i sıfırlayalım */
+        }
+
+            .sidebar-body button {
+                width: 100%; /* Butonun genişliği %100 olacak */
+                margin: 0 0 20px 0; /* Alt tarafına 10px boşluk ekliyoruz */
+                font-size: 1.1rem; /* Font boyutunu ayarlıyoruz */
+                padding: 15px; /* İç padding */
+                background-color: #ffc107; /* Buton rengi */
+                border: none; /* Kenarlık yok */
+                color: black; /* Yazı rengi */
+                transition: 0.3s background ease; /* Hover efekti */
+                text-align: left; /* Yazıyı sola hizala */
+                padding-left: 20px; /* Sol padding */
+                border-radius: 8px; /* Buton kenarlarını yuvarlak yapıyoruz */
+                font-weight: normal; /* Font kalınlığını normal yapıyoruz */
+            }
+
+                .sidebar-body button:hover {
+                    background-color: #e0a800; /* Hover rengi */
+                }
+
+
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            width: calc(100% - 250px);
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+            .form-container h1 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+                color: #2d3436;
+                font-weight: 600;
+            }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+            .form-group label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: #636e72;
+            }
+
+            .form-group input, .form-group select {
+                width: 100%;
+                padding: 0.9rem;
+                font-size: 1rem;
+                border: 1px solid #dcdde1;
+                border-radius: 10px;
+                background-color: #f5f6fa;
+                outline: none;
+                transition: 0.3s all ease;
+            }
+
+                .form-group input:focus, .form-group select:focus {
+                    border-color: #0984e3;
+                    background-color: #ffffff;
+                }
+
+            .form-group .error {
+                color: #d63031;
+                font-size: 0.85rem;
+                margin-top: 0.5rem;
+            }
+
+        .submit-btn {
+            background: #0984e3;
+            color: #ffffff;
+            border: none;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s background ease;
+            font-weight: 600;
+        }
+
+            .submit-btn:hover {
+                background: #74b9ff;
+            }
+
+        .sidebar-body button.ana-menu-btn {
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            padding: 15px;
+            background-color: #343a40; /* Gri yerine koyu arka plan */
+            border: none;
+            font-weight: 600;
+            color: white;
+            transition: 0.3s background ease;
+            text-align: left; /* Yazıları sola hizala */
+            padding-left: 20px; /* Sol padding ile estetik */
+            border-radius: 8px; /* Buton kenarlarını yuvarlak yap */
+        }
+
+            .sidebar-body button.ana-menu-btn:hover {
+                background-color: #23272b; /* Hover durumunda daha koyu gri */
+            }
+
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Admin Paneli</h3>
+            </div>
+
+            <div class="sidebar-body">
+                <button onclick="window.location.href='/Admin/Kitap/Index'">Personel Paneli</button>
+                <button onclick="window.location.href='/Admin/Kitap/KitapEkle'">Kitap Ekle</button>
+                <button onclick="window.location.href='/Admin/Kitap/Kullanici'">Kullanıcılar</button>
+                <button onclick="window.location.href='/Admin/Kitap/Destek'">Destek</button>
+                <button class="btn ana-menu-btn w-100 mb-4 p-3" onclick="window.location.href='/Admin/Kitap/Index'">Ana Menü</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="form-container">
+                <h1>Kitap Ekle</h1>
+                <form id="kitapForm" asp-action="KitapEkle" asp-controller="Kitap" asp-area="Admin" method="post" onsubmit="return validateForm()">
+                    <div class="form-group">
+                        <label for="kitapAd">Kitap Adı</label>
+                        <input type="text" id="kitapAd" name="kitapAd" value="@Model.kitapAd" required>
+                        <div class="error" id="kitapAdError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kitapYazari">Yazar Adı</label>
+                        <input type="text" id="kitapYazari" name="kitapYazari" value="@Model.kitapYazari" required>
+                        <div class="error" id="kitapYazariError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kitapYazimTarihi">Yazım Tarihi</label>
+                        <input type="date" id="kitapYazimTarihi" name="kitapYazimTarihi" value="@Model.kitapYazimTarihi.ToString("yyyy-MM-dd")" required>
+                        <div class="error" id="kitapYazimTarihiError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kitapImg">Kapak Resmi URL</label>
+                        <input type="url" id="kitapImg" name="kitapImg" value="@Model.kitapImg" required>
+                        <div class="error" id="kitapImgError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kitapAlimTarihi">Alım Tarihi</label>
+                        <input type="date" id="kitapAlimTarihi" name="kitapAlimTarihi" value="@Model.kitapAlimTarihi.ToString("yyyy-MM-dd")" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aktiflik">Aktiflik</label>
+                        <select id="aktiflik" name="aktiflik" required>
+                            <option value="Aktif" @(Model.aktiflik == "Aktif" ? "selected" : "")>Aktif</option>
+                            <option value="Pasif" @(Model.aktiflik == "Pasif" ? "selected" : "")>Pasif</option>
+                        </select>
+                        <div class="error" id="aktiflikError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="basımNumarasi">Basım Numarası</label>
+                        <input type="number" id="basımNumarasi" name="basımNumarasi" value="@Model.basımNumarasi" min="1" required>
+                        <div class="error" id="basımNumarasiError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alanKişiId">Alan Kişi ID</label>
+                        <input type="text" id="alanKişiId" name="alanKişiId" value="@Model.alanKişiId.ToString()">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            let valid = true;
+
+            // Kitap Adı
+            const kitapAd = document.getElementById("kitapAd");
+            const kitapAdError = document.getElementById("kitapAdError");
+            if (kitapAd.value.trim() === "") {
+                kitapAdError.textContent = "Kitap adı boş olamaz.";
+                valid = false;
+            } else {
+                kitapAdError.textContent = "";
+            }
+
+            // Yazar Adı
+            const kitapYazari = document.getElementById("kitapYazari");
+            const kitapYazariError = document.getElementById("kitapYazariError");
+            if (kitapYazari.value.trim() === "") {
+                kitapYazariError.textContent = "Yazar adı boş olamaz.";
+                valid = false;
+            } else {
+                kitapYazariError.textContent = "";
+            }
+
+            // Yazım Tarihi
+            const kitapYazimTarihi = document.getElementById("kitapYazimTarihi");
+            const kitapYazimTarihiError = document.getElementById("kitapYazimTarihiError");
+            if (kitapYazimTarihi.value === "") {
+                kitapYazimTarihiError.textContent = "Yazım tarihi seçilmelidir.";
+                valid = false;
+            } else {
+                kitapYazimTarihiError.textContent = "";
+            }
+
+            // Kapak Resmi URL
+            const kitapImg = document.getElementById("kitapImg");
+            const kitapImgError = document.getElementById("kitapImgError");
+            if (kitapImg.value.trim() === "") {
+                kitapImgError.textContent = "Kapak resmi URL'si boş olamaz.";
+                valid = false;
+            } else {
+                kitapImgError.textContent = "";
+            }
+
+            // Aktiflik
+            const aktiflik = document.getElementById("aktiflik");
+            const aktiflikError = document.getElementById("aktiflikError");
+            if (aktiflik.value.trim() === "") {
+                aktiflikError.textContent = "Aktiflik seçilmelidir.";
+                valid = false;
+            } else {
+                aktiflikError.textContent = "";
+            }
+
+            // Basım Numarası
+            const basımNumarasi = document.getElementById("basımNumarasi");
+            const basımNumarasiError = document.getElementById("basımNumarasiError");
+            if (basımNumarasi.value < 1) {
+                basımNumarasiError.textContent = "Basım numarası 1'den küçük olamaz.";
+                valid = false;
+            } else {
+                basımNumarasiError.textContent = "";
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+﻿@model IEnumerable<KütüphaneWebApi.Models.Destek>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destek Paneli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin-left: 0;
+        }
+
+        /* Sol Menü */
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            padding-top: 20px;
+            position: fixed;
+            height: 100%;
+            left: 0;
+        }
+
+            .sidebar .btn-group {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .sidebar .btn {
+                padding: 12px 25px;
+                font-size: 16px;
+                text-align: left;
+                width: 100%;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .sidebar .btn-warning {
+                background-color: #ffc107;
+                border: none;
+            }
+
+                .sidebar .btn-warning:hover {
+                    background-color: #e0a800;
+                }
+
+            .sidebar .btn-dark {
+                background-color: #343a40;
+                border: none;
+            }
+
+                .sidebar .btn-dark:hover {
+                    background-color: #23272b;
+                }
+
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        /* İçerik Alanı */
+        .content-container {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .support-message {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+
+            .btn-danger:hover {
+                background-color: #c82333;
+            }
+
+        /* Arama kutusu için stil */
+        .search-container {
+            margin-bottom: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+            .search-container input {
+                width: 100%;
+                padding: 0.5rem;
+                font-size: 1rem;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Sol Menü -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Admin Paneli</h3>
+        </div>
+        <div class="btn-group">
+            <a href="/Admin/Kitap/Index" class="btn btn-warning">Personel Paneli</a>
+        </div>
+        <div class="btn-group">
+            <a href="/Admin/Kitap/KitapEkle" class="btn btn-warning">Kitap Ekle</a>
+        </div>
+        <div class="btn-group">
+            <a href="/Admin/Kitap/Kullanici" class="btn btn-warning">Kullanicilar</a>
+        </div>
+        <div class="btn-group">
+            <a href="/Admin/Kitap/Destek" class="btn btn-warning">Destek</a>
+        </div>
+        <div class="btn-group">
+            <a href="/Kitaps/Index" class="btn btn-dark">Ana Menü</a>
+        </div>
+    </div>
+
+    <!-- İçerik Alanı -->
+    <div class="content-container">
+        <h2>Destek Mesajları</h2>
+
+        <!-- Arama Kutusu -->
+        <div class="search-container">
+            <input type="text" id="searchBox" class="form-control" placeholder="Destek mesajlarını ara" onkeyup="aramaYap()">
+        </div>
+
+        <!-- Destek Mesajları Listesi -->
+        @foreach (var destek in Model)
+        {
+            <div class="support-message">
+                <h4>@destek.Ad @destek.Soyad</h4>
+                <p><strong>Telefon:</strong> @destek.TelefonNo</p>
+                <p><strong>Email:</strong> @destek.Email</p>
+                <p><strong>Açıklama:</strong> @destek.Aciklama</p>
+                <form method="post" action="@Url.Action("DestekSil", "Kitap", new { area = "Admin", id = destek.Id })">
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                </form>
+            </div>
+        }
+    </div>
+
+    <script>
+        // Arama fonksiyonu
+        function aramaYap() {
+            var searchInput = document.getElementById("searchBox").value.toLowerCase();
+            var destekMesajları = document.querySelectorAll(".support-message");
+
+            destekMesajları.forEach(function(message) {
+                var adSoyad = message.querySelector("h4").textContent.toLowerCase();
+                if (adSoyad.indexOf(searchInput) === -1) {
+                    message.style.display = "none";  // Mesajı gizle
+                } else {
+                    message.style.display = "block"; // Mesajı göster
+                }
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

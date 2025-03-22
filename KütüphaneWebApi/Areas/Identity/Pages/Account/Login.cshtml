@@ -1,0 +1,56 @@
+﻿@page
+@model LoginModel
+
+@{
+   
+}
+
+<h1 class="text-center mb-4">@ViewData["Title"]</h1>
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div class="col-md-5 col-lg-4 shadow-lg rounded p-4 bg-white">
+        <section>
+            <form id="account" method="post">
+                <h2 class="text-center mb-4 text-primary">Giriş Yap</h2>
+                <hr class="mb-4" />
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control border-primary" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email" class="form-label">E-posta</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" type="password" class="form-control border-primary" autocomplete="current-password" aria-required="true" placeholder="Şifre" />
+                    <label asp-for="Input.Password" class="form-label">Şifre</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" asp-for="Input.RememberMe" id="rememberMe" />
+                    <label asp-for="Input.RememberMe" class="form-check-label" for="rememberMe">
+                        Beni Hatırla
+                    </label>
+                </div>
+
+                <button id="login-submit" type="submit" class="w-100 btn btn-primary btn-lg">Giriş Yap</button>
+
+                <div class="mt-4 text-center">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword" class="text-decoration-none">Şifrenizi mi unuttunuz?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none">Yeni kullanıcı kaydı oluştur</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-decoration-none">E-posta onayını yeniden gönder</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

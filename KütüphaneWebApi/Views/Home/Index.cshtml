@@ -1,0 +1,79 @@
+﻿@using YourNamespace.Helpers  <!-- HtmlHelpers sınıfını dahil edin -->
+@{
+    ViewBag.Title = "Hakkımızda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4 text-primary">@ViewBag.Title</h1>
+        <p class="text-muted">Bizi daha yakından tanıyın!</p>
+    </div>
+
+    <!-- HTML Helper Kullanımı -->
+    <div class="about-section p-4 rounded shadow-sm">
+        <div class="mb-3">
+            @Html.Label("aboutUsContent", "Biz Kimiz?", new { @class = "section-title text-secondary" })
+            @Html.TextArea("aboutUsContent", "Yapımcı Umutcan Kemahlı 2212721050.", new { @class = "about-textarea form-control" })
+        </div>
+
+        <!-- Custom HTML Helper Kullanımı -->
+        <div class="custom-about-section">
+            @Html.Raw(Html.CustomAboutSection("Hakkımızda", "Biz, yenilikçi çözümlerle müşterilerimize en iyi hizmeti sunmayı hedefleyen bir teknoloji şirketiyiz."))
+        </div>
+    </div>
+</div>
+
+<style>
+    .about-section {
+        border: 1px solid #e0e0e0;
+        background-color: #ffffff;
+        transition: box-shadow 0.3s ease;
+    }
+
+        .about-section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .about-textarea {
+        width: 100%;
+        height: 150px;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+    }
+
+        .about-textarea:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+        }
+
+    .custom-about-section {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+    }
+
+        .custom-about-section h2 {
+            font-size: 1.75rem;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .custom-about-section p {
+            font-size: 1rem;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+</style>

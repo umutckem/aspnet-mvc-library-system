@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KütüphaneWebApi</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/KütüphaneWebApi.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        header {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            color: white;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: white;
+        }
+        .navbar-brand:hover {
+            color: #cce5ff;
+        }
+        .nav-link {
+            color: white;
+        }
+        .nav-link:hover {
+            color: #cce5ff;
+        }
+        footer {
+            background-color: #343a40;
+            color: #adb5bd;
+        }
+        footer a {
+            color: #adb5bd;
+        }
+        footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Kitaps" asp-action="Index">KütüphaneWebApi</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer mt-auto py-3">
+
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html
