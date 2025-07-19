@@ -1,34 +1,59 @@
-# 📚 Library Management System
+## 📚 Library Management System
 
-A simple ASP.NET MVC application for managing books, user accounts, and library transactions.
+Bu proje, kitapları, kullanıcı hesaplarını ve kütüphane işlemlerini yönetmek için geliştirilen basit bir ASP.NET MVC uygulamasıdır.
 
-🚀 Features
+## 🚀 Özellikler
 
-👥 User Registration and Login: Allows users to create accounts and log in.
+👥 Kullanıcı Kaydı ve Giriş
+- Kullanıcılar hesap oluşturabilir ve sisteme giriş yapabilir.
 
-📖 Book Management: Add, view, and manage books in the library.
+📖 Kitap Yönetimi
+- Kütüphaneye kitap ekleyebilir, mevcut kitapları görüntüleyebilir ve yönetebilirsiniz.
 
-📦 Book Borrowing and Returning: Borrow and return books with user balance tracking.
+📦 Kitap Ödünç Alma ve İade
+- Kullanıcılar kitap ödünç alabilir, iade edebilir ve bakiye takibini yapabilir.
 
-🔍 Book Availability: Check if books are available for borrowing.
+🔍 Kitap Uygunluk Kontrolü
+- Kitapların ödünç alınabilir durumda olup olmadığını görebilirsiniz.
+  
+
+## ⚙️ Kullanılan Teknolojiler
+
+- ASP.NET MVC
+
+- C#
+
+- Entity Framework
+
+- SQL Server (veritabanı için)
 
 
-⚙️ Technologies Used
+## 🎯 Nasıl Kullanılır?
 
-ASP.NET MVC
+- Yeni bir hesap oluşturun veya mevcut hesabınızla giriş yapın.
 
-C#
+- Kütüphanedeki mevcut kitaplara göz atın.
 
-Entity Framework
+- İstediğiniz kitabı ödünç alın ve ödünç geçmişinizi görüntüleyin.
 
-SQL Server (for database)
+- Okuduğunuz kitapları iade edin.
 
-🎯 Usage
+## Ekran Görüntüleri
 
-Register a new account or log in if you already have one.
+<img width="1919" height="876" alt="image" src="https://github.com/user-attachments/assets/4a29d35c-29db-4a68-aaa7-a3e1dc63180e" />
 
-Browse the available books in the library.
+<img width="1898" height="904" alt="image" src="https://github.com/user-attachments/assets/960b9749-05e6-4347-af3e-e0906ed9283a" />
 
-Borrow a book and track your borrowing history.
+<img width="1897" height="904" alt="image" src="https://github.com/user-attachments/assets/eaedd2cd-1e5a-431d-b115-47f0248a0365" />
 
-Return borrowed books when finished.
+<img width="1916" height="878" alt="image" src="https://github.com/user-attachments/assets/39ad5781-d6d7-4f46-b0f2-c899a63ccdfb" />
+
+<img width="1915" height="873" alt="image" src="https://github.com/user-attachments/assets/b880cccc-816b-4044-ba81-e9b8fc9cce48" />
+
+<img width="1917" height="878" alt="image" src="https://github.com/user-attachments/assets/1796eb4c-294d-4a0c-9bc6-3387258ddcf2" />
+
+<img width="1911" height="899" alt="image" src="https://github.com/user-attachments/assets/8bf910d8-4bbe-44d8-b0ca-fe176404fa05" />
+
+<img width="1919" height="893" alt="image" src="https://github.com/user-attachments/assets/8fb1c913-2150-4ffd-bf9d-7082b96a37ab" />
+
+<img width="1919" height="879" alt="image" src="https://github.com/user-attachments/assets/88a2a44a-d489-471a-be7e-e235f5b9a50a" />
