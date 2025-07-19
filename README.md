@@ -1,4 +1,4 @@
-## 📚 Library Management System
+## 📚 Kütüphane Yönetim Sistemi
 
 Bu proje, kitapları, kullanıcı hesaplarını ve kütüphane işlemlerini yönetmek için geliştirilen basit bir ASP.NET MVC uygulamasıdır.
 
